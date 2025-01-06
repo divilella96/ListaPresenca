@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Presença</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Lista de Presença</h1>
+  <form id="attendance-form">
+    <input type="text" id="name" placeholder="Nome" required>
+    <input type="date" id="date" required>
+    <select id="shift">
+      <option value="Manhã">Manhã</option>
+      <option value="Tarde">Tarde</option>
+    </select>
+    <button type="submit">Registrar Presença</button>
+  </form>
+  <div id="output">
+    <h2>Presenças Registradas</h2>
+    <ul id="attendance-list"></ul>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
