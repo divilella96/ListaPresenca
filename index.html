@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,8 @@
 </head>
 <body>
   <h1>Lista de Presença</h1>
+
+  <!-- Formulário de registro -->
   <form id="attendance-form">
     <input type="text" id="name" placeholder="Nome" required>
     <input type="date" id="date" required>
@@ -18,24 +20,28 @@
     <button type="submit">Registrar Presença</button>
   </form>
   <hr>
+
+  <!-- Upload e Download de Arquivo -->
   <div>
     <h2>Upload de Arquivo</h2>
     <input type="file" id="file-input" accept=".txt">
     <button id="download-file" disabled>Baixar Arquivo Atualizado</button>
   </div>
-  <div id="totals">
-  <h2>Total por Nome</h2>
-  <ul id="totals-list"></ul>
-  </div>
   <hr>
-  <div id="output">
-    <h2>Presenças Registradas</h2>
-    <ul id="attendance-list"></ul>
-  </div>
+
+  <!-- Total por Nome -->
   <div id="totals">
     <h2>Total por Nome</h2>
     <ul id="totals-list"></ul>
   </div>
+  <hr>
+
+  <!-- Presenças Registradas -->
+  <div id="output">
+    <h2>Presenças Registradas</h2>
+    <ul id="attendance-list"></ul>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
