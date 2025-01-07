@@ -131,3 +131,19 @@ downloadButton.addEventListener("click", () => {
 
   URL.revokeObjectURL(url);
 });
+function displayTotals(entries) {
+  const totals = {};
+
+  // Conta as ocorrências por nome
+  entries.forEach((entry) => {
+    totals[entry.name] = (totals[entry.name] || 0) + 1;
+  });
+
+  // Atualiza a lista exibida no totalizador
+  totalsList.innerHTML = "";
+  for (const [name, count] of Object.entries(totals)) {
+    const li = document.createElement("li");
+    li.textContent = `${name}: ${count} presença(s)`;
+    totalsList.appendChild(li);
+  }
+}
