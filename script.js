@@ -28,7 +28,7 @@ function displayAttendanceList(content) {
     .split("\n")
     .filter((line) => line.trim())
     .map((line) => {
-      const [name, date, shift] = line.split(", "); // Verifica se a separação dos dados está correta
+      const [name, date, shift] = line.split(", ");
       return { name, date, shift };
     });
 
@@ -84,7 +84,7 @@ form.addEventListener("submit", (event) => {
   if (!name || !date || !shift) return alert("Preencha todos os campos!");
 
   const newEntry = `${name}, ${date}, ${shift}`; // Concatena nome, data e turno
-  fileContent += `${newEntry}\n`; // Adiciona a nova entrada ao conteúdo
+  fileContent += `\n${newEntry}`; // Adiciona a nova entrada ao conteúdo
   displayAttendanceList(fileContent); // Atualiza a lista exibida
 
   alert("Presença registrada com sucesso!");
