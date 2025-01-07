@@ -22,12 +22,6 @@ fileInput.addEventListener("change", (event) => {
   }
 });
 
-function formatDate(dateString) {
-  const options = { day: "numeric", month: "long" }; // Dia e mês por extenso
-  const date = new Date(dateString);
-  return date.toLocaleDateString("pt-BR", options);
-}
-
 // Função para exibir a lista de presença ordenada por data
 function displayAttendanceList(content) {
   const entries = content
@@ -41,7 +35,7 @@ function displayAttendanceList(content) {
   // Ordena por data
   entries.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-  // Atualiza o conteúdo
+  // Atualiza o conteúdo da lista
   attendanceList.innerHTML = "";
   entries.forEach((entry, index) => {
     const li = document.createElement("li");
@@ -49,17 +43,13 @@ function displayAttendanceList(content) {
 
     li.innerHTML = `
       ${entry.name}, ${formatDate(entry.date)}, ${entry.shift}
-      <button class="edit" onclick="editEntry(${index})" title="Editar">
-        ✏️
-      </button>
-      <button class="delete" onclick="deleteEntry(${index})" title="Excluir">
-        ❌
-      </button>
+      <button class="edit" onclick="editEntry(${index})" title="Editar">✏️</button>
+      <button class="delete" onclick="deleteEntry(${index})" title="Excluir">❌</button>
     `;
     attendanceList.appendChild(li);
   });
 
-  // Atualiza o conteúdo global
+  // Atualiza o conteúdo global (armazena o arquivo atualizado)
   fileContent = entries.map((entry) => `${entry.name}, ${entry.date}, ${entry.shift}`).join("\n");
 
   // Atualiza o total por nome
@@ -93,12 +83,12 @@ form.addEventListener("submit", (event) => {
 
   if (!name || !date || !shift) return alert("Preencha todos os campos!");
 
-  const newEntry = `${name}, ${date}, ${shift}`;
+  const newEntry = `${name}, ${date}, ${shift}`; // Concatena nome, data e turno
   fileContent += `${newEntry}\n`; // Adiciona a nova entrada ao conteúdo
   displayAttendanceList(fileContent); // Atualiza a lista exibida
 
   alert("Presença registrada com sucesso!");
-  form.reset();
+  form.reset(); // Limpa os campos do formulário
 });
 
 // Função para editar uma entrada
@@ -141,4 +131,10 @@ downloadButton.addEventListener("click", () => {
 
   URL.revokeObjectURL(url);
 });
-  
+
+// Função para formatar a data (dia e mês por extenso)
+function formatDate(dateString) {
+  const options = { day: "numeric", month: "long" }; // Dia e mês por extenso
+  const date = new Date(dateString);
+  return date.toLocaleDateString("pt-BR", options);
+}
