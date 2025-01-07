@@ -28,7 +28,7 @@ function displayAttendanceList(content) {
     .split("\n")
     .filter((line) => line.trim())
     .map((line) => {
-      const [name, date, shift] = line.split(", ");
+      const [name, date, shift] = line.split(", "); // Verifica se a separação dos dados está correta
       return { name, date, shift };
     });
 
