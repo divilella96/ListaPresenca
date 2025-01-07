@@ -22,6 +22,12 @@ fileInput.addEventListener("change", (event) => {
   }
 });
 
+function formatDate(dateString) {
+  const options = { day: "numeric", month: "long" }; // Dia e mês por extenso
+  const date = new Date(dateString);
+  return date.toLocaleDateString("pt-BR", options);
+}
+
 // Função para exibir a lista de presença ordenada por data
 function displayAttendanceList(content) {
   const entries = content
@@ -42,9 +48,13 @@ function displayAttendanceList(content) {
     li.className = "attendance-item";
 
     li.innerHTML = `
-      ${entry.name}, ${entry.date}, ${entry.shift}
-      <button onclick="editEntry(${index})">Editar</button>
-      <button onclick="deleteEntry(${index})">Excluir</button>
+      ${entry.name}, ${formatDate(entry.date)}, ${entry.shift}
+      <button class="edit" onclick="editEntry(${index})" title="Editar">
+        ✏️
+      </button>
+      <button class="delete" onclick="deleteEntry(${index})" title="Excluir">
+        ❌
+      </button>
     `;
     attendanceList.appendChild(li);
   });
@@ -131,63 +141,4 @@ downloadButton.addEventListener("click", () => {
 
   URL.revokeObjectURL(url);
 });
-function displayTotals(entries) {
-  const totals = {};
-
-  // Conta as ocorrências por nome
-  entries.forEach((entry) => {
-    totals[entry.name] = (totals[entry.name] || 0) + 1;
-  });
-
-  // Atualiza a lista exibida no totalizador
-  totalsList.innerHTML = "";
-  for (const [name, count] of Object.entries(totals)) {
-    const li = document.createElement("li");
-    li.textContent = `${name}: ${count} presença(s)`;
-    totalsList.appendChild(li);
-  }
-}
-// Função para formatar a data (dia e mês por extenso)
-function formatDate(dateString) {
-  const options = { day: "numeric", month: "long" }; // Dia e mês por extenso
-  const date = new Date(dateString);
-  return date.toLocaleDateString("pt-BR", options);
-}
-
-// Função para exibir a lista de presença ordenada por data
-function displayAttendanceList(content) {
-  const entries = content
-    .split("\n")
-    .filter((line) => line.trim())
-    .map((line) => {
-      const [name, date, shift] = line.split(", ");
-      return { name, date, shift };
-    });
-
-  // Ordena por data
-  entries.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-  // Atualiza o conteúdo
-  attendanceList.innerHTML = "";
-  entries.forEach((entry, index) => {
-    const li = document.createElement("li");
-    li.className = "attendance-item";
-
-    li.innerHTML = `
-      ${entry.name}, ${formatDate(entry.date)}, ${entry.shift}
-      <button class="edit" onclick="editEntry(${index})" title="Editar">
-        ✏️
-      </button>
-      <button class="delete" onclick="deleteEntry(${index})" title="Excluir">
-        ❌
-      </button>
-    `;
-    attendanceList.appendChild(li);
-  });
-
-  // Atualiza o conteúdo global
-  fileContent = entries.map((entry) => `${entry.name}, ${entry.date}, ${entry.shift}`).join("\n");
-
-  // Atualiza o total por nome
-  displayTotals(entries);
-}
+  
